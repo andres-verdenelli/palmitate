@@ -1,3 +1,48 @@
-.DS_store
+# ---- OS files ----
+.DS_Store
+Thumbs.db
+
+# ---- Environment variables ----
 .env
+.env*
 *.env
+
+# ---- Node ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Build outputs ----
+dist/
+build/
+out/
+
+# ---- Logs ----
+logs/
+*.log
+*.log.*
+debug.log
+error.log
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+
+# ---- TypeScript ----
+*.tsbuildinfo
+
+# ---- Coverage ----
+coverage/
+
+# ---- Docker ----
+docker-compose.override.yml
+docker-data/
+.dockerignore
+
+# ---- Misc ----
+*.local
+*.cache
+.cache/

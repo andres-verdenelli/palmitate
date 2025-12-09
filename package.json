@@ -1,13 +1,32 @@
 {
-  "name": "palmitate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.21.0"
+	"name": "palmitate",
+	"version": "1.0.0",
+	"private": true,
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev:backend": "pnpm --filter backend dev",
+		"dev:frontend": "pnpm --filter frontend dev",
+		"dev": "pnpm --parallel run dev --filter backend --filter frontend",
+		"lint": "pnpm lint:backend && pnpm lint:frontend",
+		"lint:backend": "pnpm --filter backend lint",
+		"lint:frontend": "pnpm --filter frontend lint",
+		"format": "prettier \"**/*.{ts,tsx,js,jsx,json,md,css,html}\" --write",
+		"format:check": "prettier \"**/*.{ts,tsx,js,jsx,json,md,css,html}\" --check"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.21.0",
+	"devDependencies": {
+		"@types/node": "^24.10.2",
+		"prettier": "^3.7.4",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"typescript": "^5.9.3",
+		"@eslint/js": "^9.39.1",
+		"eslint": "^9.39.1",
+		"globals": "^16.5.0",
+		"typescript-eslint": "^8.48.1"
+	},
+	"dependencies": {}
 }

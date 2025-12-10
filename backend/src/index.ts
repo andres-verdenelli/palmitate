@@ -80,7 +80,7 @@ app.post('/login', async (req, res) => {
 				id: foundUser.id,
 				email: foundUser.email,
 			},
-			process.env.JWT_SECRET as string,
+			process.env['JWT_SECRET'] as string,
 			{
 				expiresIn: '1h',
 			},
@@ -96,7 +96,7 @@ app.post('/login', async (req, res) => {
 	}
 })
 
-app.delete('/deleteUsers', async (req, res) => {
+app.delete('/deleteUsers', async (_req, res) => {
 	try {
 		const deleted = await db.delete(users).returning()
 

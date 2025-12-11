@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express'
+import { ENV } from '../config/env.js'
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
 	const authHeader = req.headers.authorization
@@ -15,7 +16,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 	}
 
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET as string)
+		const decoded = jwt.verify(token, ENV.JWT_SECRET)
 
 		// attach the user info to the request
 		// @ts-expect-error: we extend the request on purpose

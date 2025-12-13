@@ -19,3 +19,9 @@ export async function createUser(email: string, hashedPassword: string) {
 
 	return createdUser
 }
+
+export async function selectUserById(id: string) {
+	const [selectedUser] = await db.select().from(users).where(eq(users.id, id))
+
+	return selectedUser ?? null
+}

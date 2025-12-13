@@ -1,11 +1,9 @@
 import express from 'express'
-import dotenv from 'dotenv'
 import cors from 'cors'
 import { authRouter } from './routes/auth.js'
 import { ENV } from './config/env.js'
 import { corsOptions } from './config/cors.js'
 
-dotenv.config()
 const app = express()
 const port = ENV.PORT
 

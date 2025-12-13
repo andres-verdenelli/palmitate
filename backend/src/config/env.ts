@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 const JWT_SECRET = process.env['JWT_SECRET']
 const DATABASE_URL = process.env['DATABASE_URL']
 const PORT = process.env['PORT']

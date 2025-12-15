@@ -1,8 +1,13 @@
 import jwt from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express'
 import { ENV } from '../config/env.js'
+import { selectUserById } from '../db/queries/users.js'
 
-export function requireAuth(req: Request, res: Response, next: NextFunction) {
+export async function requireAuth(
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) {
 	const authHeader = req.headers.authorization
 
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -16,11 +21,16 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 	}
 
 	try {
-		const decoded = jwt.verify(token, ENV.JWT_SECRET)
+		const payload = jwt.verify(token, ENV.JWT_SECRET)
 
+		const user = await selectUserById(payload.id)
+
+		if (!user) {
+			return res.status(404).json({ error: 'User not found' })
+		}
 		// attach the user info to the request
 		// @ts-expect-error: we extend the request on purpose
-		req.user = decoded
+		req.user = payload
 
 		return next()
 	} catch (error) {

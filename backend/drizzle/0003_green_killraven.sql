@@ -1,0 +1,1 @@
+ALTER TABLE "notes" ALTER COLUMN "text" SET NOT NULL;

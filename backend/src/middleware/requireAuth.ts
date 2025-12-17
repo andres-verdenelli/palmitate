@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt, { type JwtPayload } from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express'
 import { ENV } from '../config/env.js'
 import { selectUserById } from '../db/queries/users.js'
@@ -21,9 +21,9 @@ export async function requireAuth(
 	}
 
 	try {
-		const payload = jwt.verify(token, ENV.JWT_SECRET)
+		const payload = jwt.verify(token, ENV.JWT_SECRET) as JwtPayload
 
-		const user = await selectUserById(payload.id)
+		const user = await selectUserById(payload['id'])
 
 		if (!user) {
 			return res.status(404).json({ error: 'User not found' })

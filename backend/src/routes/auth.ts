@@ -11,6 +11,7 @@ export const authRouter: Router = Router()
 
 authRouter.post('/signup', async (req, res) => {
 	const { email, password } = req.body
+
 	if (!email || !password) {
 		return res.status(400).json({ error: 'email and password required' })
 	}
@@ -67,7 +68,7 @@ authRouter.post('/login', async (req, res) => {
 			},
 			ENV.JWT_SECRET,
 			{
-				expiresIn: '1h',
+				expiresIn: '15m',
 			},
 		)
 

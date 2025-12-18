@@ -2,6 +2,7 @@ import jwt, { type JwtPayload } from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express'
 import { ENV } from '../config/env.js'
 import { selectUserById } from '../db/queries/users.js'
+import type { Payload } from '../types/auth.js'
 
 export async function requireAuth(
 	req: Request,
@@ -21,16 +22,18 @@ export async function requireAuth(
 	}
 
 	try {
-		const payload = jwt.verify(token, ENV.JWT_SECRET) as JwtPayload
+		const payload = jwt.verify(token, ENV.JWT_SECRET) as JwtPayload & Payload
 
-		const user = await selectUserById(payload['id'])
+		const user = await selectUserById(payload.id)
 
 		if (!user) {
 			return res.status(404).json({ error: 'User not found' })
 		}
-		// attach the user info to the request
-		// @ts-expect-error: we extend the request on purpose
-		req.user = payload
+
+		req.user = {
+			id: payload.id,
+			email: payload.email,
+		}
 
 		return next()
 	} catch (error) {

@@ -18,7 +18,6 @@ notesRouter.post('/notes', async (req, res) => {
 		return res.status(400).json({ error: 'Title and text required' })
 	}
 
-	//@ts-expect-error esta incluido, cree en mi xD
 	const userId = req.user?.id
 
 	if (!userId) {
@@ -36,7 +35,7 @@ notesRouter.post('/notes', async (req, res) => {
 
 notesRouter.get('/notes/:id', async (req, res) => {
 	const noteId = req.params.id
-	//@ts-expect-error esta incluido, cree en mi
+
 	const userId = req.user?.id
 
 	if (!userId) {
@@ -56,7 +55,6 @@ notesRouter.get('/notes/:id', async (req, res) => {
 })
 
 notesRouter.get('/notes', async (req, res) => {
-	//@ts-expect-error esta incluido, cree en mi
 	const userId = req.user?.id
 
 	if (!userId) {
@@ -75,7 +73,6 @@ notesRouter.get('/notes', async (req, res) => {
 })
 
 notesRouter.delete('/notes/:id', async (req, res) => {
-	//@ts-expect-error esta inlcuido
 	const userId = req.user?.id
 	const noteId = req.params.id
 

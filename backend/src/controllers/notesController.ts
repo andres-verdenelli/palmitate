@@ -4,6 +4,7 @@ import {
 	deleteNoteById,
 	getNoteById,
 	getNotesByUserId,
+	updateNoteById,
 } from '../db/queries/notes.js'
 
 export const createNote: RequestHandler = async (req, res) => {
@@ -94,5 +95,37 @@ export const deleteNote: RequestHandler = async (req, res) => {
 	} catch (error) {
 		console.error('Error deleteing note', error)
 		return res.status(400).json({ error: 'Error deleteing note' })
+	}
+}
+
+export const editNote: RequestHandler = async (req, res) => {
+	const noteId = req.params['id']
+	if (!noteId) {
+		return res.status(400).json({ error: 'there is not note id param' })
+	}
+
+	const userId = req.user?.id
+
+	if (!userId) {
+		return res.status(400).json({ error: ' there is not user id' })
+	}
+
+	const { title, text } = req.body
+
+	if (!title || !text) {
+		return res.status(400).json({ error: 'Title and text required' })
+	}
+
+	try {
+		const updatedNote = await updateNoteById(noteId, userId, title, text)
+		if (!updatedNote) {
+			return res.status(400).json({ error: 'error updating or finding note' })
+		}
+		const { id, createdAt, ...note } = updatedNote
+
+		return res.status(200).json({ message: 'note updated', note: note })
+	} catch (error) {
+		console.error('error updating note', error)
+		return res.status(400).json({ error: 'something went wrong updating note' })
 	}
 }

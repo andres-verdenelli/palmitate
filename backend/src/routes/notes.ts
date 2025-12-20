@@ -4,6 +4,7 @@ import { requireAuth } from '../middleware/requireAuth.js'
 import {
 	createNote,
 	deleteNote,
+	editNote,
 	getNote,
 	getNotes,
 } from '../controllers/notesController.js'
@@ -20,4 +21,4 @@ notesRouter.get('/notes', getNotes)
 
 notesRouter.delete('/notes/:id', deleteNote)
 
-// notesRouter.put('/notes/:id', async (req, res) => {})
+notesRouter.put('/notes/:id', editNote)

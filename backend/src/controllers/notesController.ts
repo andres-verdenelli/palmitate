@@ -121,6 +121,7 @@ export const editNote: RequestHandler = async (req, res) => {
 		if (!updatedNote) {
 			return res.status(400).json({ error: 'error updating or finding note' })
 		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { id, createdAt, ...note } = updatedNote
 
 		return res.status(200).json({ message: 'note updated', note: note })

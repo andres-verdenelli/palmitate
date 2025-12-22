@@ -75,8 +75,3 @@ export const login: RequestHandler = async (req, res) => {
 		return res.status(500).json({ error: 'Database error' })
 	}
 }
-
-export const me: RequestHandler = (req, res) => {
-	const user = req.user
-	return res.json({ user })
-}

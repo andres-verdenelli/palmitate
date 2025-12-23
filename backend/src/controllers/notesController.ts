@@ -22,7 +22,12 @@ export const createNote: RequestHandler = async (req, res) => {
 
 	try {
 		const note = await createNoteQuery(userId, title, text)
-		return res.status(201).json({ message: 'Note created', note })
+		if (!note) {
+			return res.status(400).json({ error: 'error creating note' })
+		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { id, ...publicNote } = note
+		return res.status(201).json({ message: 'Note created', publicNote })
 	} catch (error) {
 		console.error('Error creating note', error)
 		return res.status(400).json({ error: 'Error creating note' })

@@ -9,13 +9,11 @@ import {
 
 export const createNote: RequestHandler = async (req, res) => {
 	const { title, text } = req.body
+	const userId = req.user?.id
 
 	if (!title || !text) {
 		return res.status(400).json({ error: 'Title and text required' })
 	}
-
-	const userId = req.user?.id
-
 	if (!userId) {
 		return res.status(400).json({ error: 'Internal error bro' })
 	}
@@ -36,12 +34,11 @@ export const createNote: RequestHandler = async (req, res) => {
 
 export const getNote: RequestHandler = async (req, res) => {
 	const noteId = req.params['id']
+	const userId = req.user?.id
 
 	if (!noteId) {
 		return res.status(400).json({ error: 'Missing id' })
 	}
-
-	const userId = req.user?.id
 
 	if (!userId) {
 		return res.status(400).json({ error: 'Internal error bro' })
@@ -79,12 +76,11 @@ export const getNotes: RequestHandler = async (req, res) => {
 
 export const deleteNote: RequestHandler = async (req, res) => {
 	const noteId = req.params['id']
+	const userId = req.user?.id
 
 	if (!noteId) {
 		return res.status(400).json({ error: 'Missing id' })
 	}
-	const userId = req.user?.id
-
 	if (!userId) {
 		return res.status(400).json({ error: 'Internal error bro' })
 	}
@@ -105,18 +101,15 @@ export const deleteNote: RequestHandler = async (req, res) => {
 
 export const editNote: RequestHandler = async (req, res) => {
 	const noteId = req.params['id']
+	const userId = req.user?.id
+	const { title, text } = req.body
+
 	if (!noteId) {
 		return res.status(400).json({ error: 'there is not note id param' })
 	}
-
-	const userId = req.user?.id
-
 	if (!userId) {
 		return res.status(400).json({ error: ' there is not user id' })
 	}
-
-	const { title, text } = req.body
-
 	if (!title || !text) {
 		return res.status(400).json({ error: 'Title and text required' })
 	}
